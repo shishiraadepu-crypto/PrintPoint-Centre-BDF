@@ -1,0 +1,13 @@
+$kind: http-request
+url: http://localhost:3000/printers/1
+method: PUT
+body:
+  type: json
+  content: "{\r
+
+    \    \"name\": \"Printer 1 Updated\",\r
+
+    \    \"material\": \"ABS\"\r
+
+    }\r\n"
+order: 4000

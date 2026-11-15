@@ -1,0 +1,13 @@
+$kind: http-request
+url: http://localhost:3000/printers
+method: POST
+body:
+  type: json
+  content: "{\r
+
+    \    \"name\": \"\",\r
+
+    \    \"material\": \"PLA\"\r
+
+    }"
+order: 8000
