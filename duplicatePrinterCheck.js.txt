@@ -1,0 +1,37 @@
+
+function checkDuplicatePrinter(db) {
+    return (req, res, next) => {
+        const { name } = req.body || {};
+        const id = req.params.id;
+
+        if (typeof name !== "string" || !name.trim()) {
+            return next();
+        }
+
+        let query = "SELECT printer_id FROM printers WHERE LOWER(name) = LOWER(?)";
+        let params = [name.trim()];
+
+        if (id !== undefined) {
+            query += " AND printer_id != ?";
+            params.push(id);
+        }
+
+        db.get(query, params, (err, row) => {
+            if (err) {
+                return res.status(500).json({
+                    error: err.message
+                });
+            }
+
+            if (row) {
+                return res.status(409).json({
+                    message: "Printer name already exists"
+                });
+            }
+
+            next();
+        });
+    };
+}
+
+module.exports = checkDuplicatePrinter;
